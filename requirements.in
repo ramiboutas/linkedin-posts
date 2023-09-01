@@ -1,0 +1,6 @@
+python-dotenv
+ipython
+coverage
+pytest
+pyclean
+requests

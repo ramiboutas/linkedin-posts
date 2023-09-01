@@ -1,0 +1,39 @@
+[build-system]
+requires = ['setuptools>=61.0.0']
+build-backend = 'setuptools.build_meta'
+
+
+[project]
+name = "linkedin-posts"
+version = "0.0.1"
+authors = [{ name = "Rami", email = "ramiboutas@protonmail.com" }]
+description = "Utility to share Linkedin posts using the Linkedin Marketing API"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+  "Development Status :: 1 - Planning",
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Intended Audience :: Developers",
+
+]
+
+dependencies = []
+
+[tool.setuptools]
+
+packages = ["linkedin_posts"]
+
+[project.urls]
+"Homepage" = "https://github.com/ramiboutas/linkedin-posts"
+"Bug Tracker" = "https://github.com/ramiboutas/linkedin-posts/issues"
+
+
+[tool.coverage.run]
+branch = true
+omit = ["tests/*"]
+
+
+[tool.coverage.paths]
+source = ["linkedin_posts/"]
