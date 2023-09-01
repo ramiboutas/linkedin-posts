@@ -27,8 +27,6 @@ def get_profile(access_token):
     """
     Fetches the profile of a LinkedIn user who has given you their permission to view their profile
     """
-    LI_PROFILE_API_ENDPOINT = "https://api.linkedin.com/v2/me"
-    r = requests.get(
-        LI_PROFILE_API_ENDPOINT, headers={"Authorization": "Bearer " + access_token}
-    )
+    endpoint = "https://api.linkedin.com/v2/me"
+    r = requests.get(endpoint, headers={"Authorization": "Bearer " + access_token})
     return r.json()
