@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>linkedin_posts.posts &#8212; linkedin-posts  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=039e1c02" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for linkedin_posts.posts</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="kn">import</span> <span class="nn">urllib.parse</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">from</span> <span class="nn">.formats</span> <span class="kn">import</span> <span class="n">escape_little_text</span>
+
+
+<div class="viewcode-block" id="share_post">
+<a class="viewcode-back" href="../../linkedin_posts.html#linkedin_posts.posts.share_post">[docs]</a>
+<span class="k">def</span> <span class="nf">share_post</span><span class="p">(</span>
+    <span class="n">access_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">comment</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">author_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">author_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">visibility</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;PUBLIC&quot;</span><span class="p">,</span>
+    <span class="n">feed_distribution</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;MAIN_FEED&quot;</span><span class="p">,</span>
+    <span class="n">reshable_disabled</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Share a post in Linkedin</span>
+
+<span class="sd">    Detailed parameters:</span>
+
+<span class="sd">    https://learn.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/posts-api?view=li-lms-2023-08&amp;tabs=http#post-schema</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    access_token : str</span>
+<span class="sd">        Linkedin Access Token (OAuth 2.0).</span>
+<span class="sd">        https://learn.microsoft.com/en-us/linkedin/learning/getting-started/authentication#generating-an-access-token</span>
+
+<span class="sd">    comment : str</span>
+<span class="sd">        Commentary for the post.</span>
+
+<span class="sd">    author_type : str</span>
+<span class="sd">        Author type</span>
+<span class="sd">        Value choices: &quot;person&quot; or &quot;organization&quot;</span>
+
+<span class="sd">    author_id : str | int</span>
+<span class="sd">        Indentification of the post author</span>
+
+<span class="sd">    visibility : str</span>
+<span class="sd">        Visibility restrictions on content</span>
+<span class="sd">        Value choices: &quot;CONNECTIONS&quot;, &quot;PUBLIC&quot;, &quot;LOGGED_IN&quot; or &quot;CONTAINER&quot;</span>
+
+<span class="sd">    feed_distribution : str</span>
+<span class="sd">        Specifies the feeds distributed to within LinkedIn.</span>
+<span class="sd">        Value choices: &quot;NONE&quot; or &quot;MAIN_FEED&quot;</span>
+
+<span class="sd">    reshable_disabled : bool</span>
+<span class="sd">        Indicates whether resharing of the post has been disabled by the author.</span>
+<span class="sd">        If this field is set to true, the post cannot be reshared in any context.</span>
+<span class="sd">        If false, other reshare restrictions may still apply due to the post&#39;s</span>
+<span class="sd">        visibility, container, or content type.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://api.linkedin.com/rest/posts&quot;</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer &quot;</span> <span class="o">+</span> <span class="n">access_token</span><span class="p">,</span>
+        <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;X-Restli-Protocol-Version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;LinkedIn-Version&quot;</span><span class="p">:</span> <span class="s2">&quot;202308&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;urn:li:</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">author_type</span><span class="p">,</span> <span class="n">author_id</span><span class="p">),</span>
+        <span class="s2">&quot;commentary&quot;</span><span class="p">:</span> <span class="n">escape_little_text</span><span class="p">(</span><span class="n">comment</span><span class="p">),</span>
+        <span class="s2">&quot;visibility&quot;</span><span class="p">:</span> <span class="n">visibility</span><span class="p">,</span>
+        <span class="s2">&quot;distribution&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;feedDistribution&quot;</span><span class="p">:</span> <span class="n">feed_distribution</span><span class="p">,</span>
+            <span class="s2">&quot;targetEntities&quot;</span><span class="p">:</span> <span class="p">[],</span>  <span class="c1"># Not implemented</span>
+            <span class="s2">&quot;thirdPartyDistributionChannels&quot;</span><span class="p">:</span> <span class="p">[],</span>  <span class="c1"># Not implemented</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;lifecycleState&quot;</span><span class="p">:</span> <span class="s2">&quot;PUBLISHED&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;isReshareDisabledByAuthor&quot;</span><span class="p">:</span> <span class="n">reshable_disabled</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+    <span class="n">req</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;POST&quot;</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span>
+    <span class="n">response_data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">response_data</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+
+<div class="viewcode-block" id="delete_post">
+<a class="viewcode-back" href="../../linkedin_posts.html#linkedin_posts.posts.delete_post">[docs]</a>
+<span class="k">def</span> <span class="nf">delete_post</span><span class="p">(</span>
+    <span class="n">access_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">linkedin_id</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;X-Restli-Protocol-Version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;LinkedIn-Version&quot;</span><span class="p">:</span> <span class="s2">&quot;202308&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;X-RestLi-Method&quot;</span><span class="p">:</span> <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer &quot;</span> <span class="o">+</span> <span class="n">access_token</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+
+
+<span class="c1"># Usage</span>
+<span class="c1"># access_token = &quot;dummycode&quot;</span>
+<span class="c1"># post_comment = &quot;Check out my latest post!&quot;</span>
+
+<span class="c1"># data = json.dumps(payload).encode(&quot;utf-8&quot;)</span>
+<span class="c1"># req = urllib.request.Request(url, data=data, headers=headers, method=&quot;POST&quot;)</span>
+<span class="c1"># response = urllib.request.urlopen(req)</span>
+<span class="c1"># response_data = response.read().decode(&quot;utf-8&quot;)</span>
+<span class="c1"># response = share_post(access_token, post_comment)</span>
+<span class="c1"># print(response)</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">linkedin-posts</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  <li><a href="../linkedin_posts.html">linkedin_posts</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, rami.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
