@@ -28,7 +28,7 @@ packages = ["linkedin_posts"]
 [project.urls]
 "Homepage" = "https://github.com/ramiboutas/linkedin-posts"
 "Bug Tracker" = "https://github.com/ramiboutas/linkedin-posts/issues"
-
+"Documentation" = "https://linkedin-posts.ramiboutas.com"
 
 [tool.coverage.run]
 branch = true
