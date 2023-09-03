@@ -13,4 +13,4 @@ The quickest way to get an Access Token is by using the Linkedin Token generator
 
 ## Docs (in dev.)
 
-[Documentation]("https://linkedin-posts.ramiboutas.com")
+[Documentation](https://linkedin-posts.ramiboutas.com)
