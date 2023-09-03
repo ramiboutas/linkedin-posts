@@ -59,7 +59,7 @@ def share_post(
     url = "https://api.linkedin.com/rest/posts"
 
     headers = {
-        "Authorization": "Bearer %s" % access_token,
+        "Authorization": "Bearer " + access_token,
         "Content-Type": "application/json",
         "X-Restli-Protocol-Version": "2.0.0",
         "LinkedIn-Version": "202308",
@@ -78,6 +78,12 @@ def share_post(
         "isReshareDisabledByAuthor": reshable_disabled,
     }
 
+    data = json.dumps(payload).encode("utf-8")
+    req = urllib.request.Request(url, data=data, headers=headers, method="POST")
+    response = urllib.request.urlopen(req)
+    return response
+    response_data = response.read().decode("utf-8")
+    return response_data
     response = requests.post(url, headers=headers, json=payload)
     return response
 
@@ -87,11 +93,11 @@ def delete_post(
     linkedin_id,
 ):
     headers = {
-        "Authorization": "Bearer %s" % access_token,
         "Content-Type": "application/json",
         "X-Restli-Protocol-Version": "2.0.0",
         "LinkedIn-Version": "202308",
         "X-RestLi-Method": "DELETE",
+        "Authorization": "Bearer " + access_token,
     }
 
 
