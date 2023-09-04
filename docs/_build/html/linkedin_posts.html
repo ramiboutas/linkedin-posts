@@ -1,12 +1,12 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="./">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Installation and Setup" href="install_and_setup.html" />
 
-    <!-- Generated with Sphinx 7.2.5 and Furo 2023.08.19 -->
-        <title>linkedin_posts package - linkedin-posts &#34;0.0.1&#34; documentation</title>
+    <!-- Generated with Sphinx 7.2.5 and Furo 2023.08.17 -->
+        <title>linkedin_posts package - linkedin-posts 0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">linkedin-posts "0.0.1" documentation</div></a>
+      <a href="index.html"><div class="brand">linkedin-posts 0.0.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -146,7 +146,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">linkedin-posts "0.0.1" documentation</span>
+  <span class="sidebar-brand-text">linkedin-posts 0.0.1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -154,7 +154,12 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install_and_setup.html">Installation and Setup</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">linkedin_posts package</a></li>
+</ul>
+
 </div>
 </div>
 
@@ -196,10 +201,9 @@
 <span id="linkedin-posts-formats-module"></span><h2>linkedin_posts.formats module<a class="headerlink" href="#module-linkedin_posts.formats" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="linkedin_posts.formats.escape_little_text">
-<span class="sig-prename descclassname"><span class="pre">linkedin_posts.formats.</span></span><span class="sig-name descname"><span class="pre">escape_little_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/linkedin_posts/formats.html#escape_little_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#linkedin_posts.formats.escape_little_text" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">escape_little_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/linkedin_posts/formats.html#escape_little_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#linkedin_posts.formats.escape_little_text" title="Link to this definition">#</a></dt>
 <dd><p>Escape Characters reserved for little elements.</p>
 <p>Little attributes (mentions, hashtags) are not supported.</p>
-<p><a class="reference external" href="https://learn.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/little-text-format?view=li-lms-2023-08#text">https://learn.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/little-text-format?view=li-lms-2023-08#text</a></p>
 <section id="parameters">
 <h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h3>
 <dl class="simple">
@@ -214,20 +218,32 @@
 <span id="linkedin-posts-posts-module"></span><h2>linkedin_posts.posts module<a class="headerlink" href="#module-linkedin_posts.posts" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="linkedin_posts.posts.delete_post">
-<span class="sig-prename descclassname"><span class="pre">linkedin_posts.posts.</span></span><span class="sig-name descname"><span class="pre">delete_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkedin_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/linkedin_posts/posts.html#delete_post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#linkedin_posts.posts.delete_post" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="linkedin_posts.posts.share_post">
-<span class="sig-prename descclassname"><span class="pre">linkedin_posts.posts.</span></span><span class="sig-name descname"><span class="pre">share_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">author_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">author_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visibility</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'PUBLIC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feed_distribution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'MAIN_FEED'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reshable_disabled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/linkedin_posts/posts.html#share_post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#linkedin_posts.posts.share_post" title="Link to this definition">#</a></dt>
-<dd><p>Share a post in Linkedin</p>
-<p>Detailed parameters:</p>
-<p><a class="reference external" href="https://learn.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/posts-api?view=li-lms-2023-08&amp;tabs=http#post-schema">https://learn.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/posts-api?view=li-lms-2023-08&amp;tabs=http#post-schema</a></p>
+<span class="sig-name descname"><span class="pre">delete_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">urn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/linkedin_posts/posts.html#delete_post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#linkedin_posts.posts.delete_post" title="Link to this definition">#</a></dt>
+<dd><p>Delete a post</p>
 <section id="id1">
 <h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <dl class="simple">
-<dt>access_token<span class="classifier">str</span></dt><dd><p>Linkedin Access Token (OAuth 2.0).
-<a class="reference external" href="https://learn.microsoft.com/en-us/linkedin/learning/getting-started/authentication#generating-an-access-token">https://learn.microsoft.com/en-us/linkedin/learning/getting-started/authentication#generating-an-access-token</a></p>
+<dt>access_token<span class="classifier">str</span></dt><dd><p>Linkedin Access Token (OAuth 2.0).</p>
+</dd>
+<dt>urn<span class="classifier">str</span></dt><dd><p>Linkedin post identification (ugcPostUrn or shareUrn)
+Example “<a class="reference external" href="urn:li:share:6844785523593134080">urn:li:share:6844785523593134080</a>”</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading">#</a></h3>
+<p>http.client.HTTPResponse object</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="linkedin_posts.posts.share_post">
+<span class="sig-name descname"><span class="pre">share_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">author_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">author_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visibility</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'PUBLIC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feed_distribution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'MAIN_FEED'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reshable_disabled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/linkedin_posts/posts.html#share_post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#linkedin_posts.posts.share_post" title="Link to this definition">#</a></dt>
+<dd><p>Share a post</p>
+<section id="id2">
+<h3>Parameters<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>access_token<span class="classifier">str</span></dt><dd><p>Linkedin Access Token (OAuth 2.0).</p>
 </dd>
 <dt>comment<span class="classifier">str</span></dt><dd><p>Commentary for the post.</p>
 </dd>
@@ -237,6 +253,7 @@ Value choices: “person” or “organization”</p>
 <dt>author_id<span class="classifier">str | int</span></dt><dd><p>Indentification of the post author</p>
 </dd>
 <dt>visibility<span class="classifier">str</span></dt><dd><p>Visibility restrictions on content
+Default:
 Value choices: “CONNECTIONS”, “PUBLIC”, “LOGGED_IN” or “CONTAINER”</p>
 </dd>
 <dt>feed_distribution<span class="classifier">str</span></dt><dd><p>Specifies the feeds distributed to within LinkedIn.
@@ -249,6 +266,10 @@ visibility, container, or content type.</p>
 </dd>
 </dl>
 </section>
+<section id="id3">
+<h3>Returns<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>http.client.HTTPResponse object</p>
+</section>
 </dd></dl>
 
 </section>
@@ -256,12 +277,12 @@ visibility, container, or content type.</p>
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-linkedin_posts" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="linkedin_posts.get_access_token">
-<span class="sig-prename descclassname"><span class="pre">linkedin_posts.</span></span><span class="sig-name descname"><span class="pre">get_access_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redirect_uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">authorization_code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/linkedin_posts.html#get_access_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#linkedin_posts.get_access_token" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_access_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redirect_uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">authorization_code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/linkedin_posts.html#get_access_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#linkedin_posts.get_access_token" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="linkedin_posts.get_profile">
-<span class="sig-prename descclassname"><span class="pre">linkedin_posts.</span></span><span class="sig-name descname"><span class="pre">get_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_token</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/linkedin_posts.html#get_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#linkedin_posts.get_profile" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_token</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/linkedin_posts.html#get_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#linkedin_posts.get_profile" title="Link to this definition">#</a></dt>
 <dd><p>Fetches the profile of a LinkedIn user who has given you their permission to view their profile</p>
 </dd></dl>
 
@@ -274,7 +295,17 @@ visibility, container, or content type.</p>
         
         <div class="related-pages">
           
-          
+          <a class="prev-page" href="install_and_setup.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Installation and Setup</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -332,7 +363,7 @@ visibility, container, or content type.</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=948d6467"></script>
+</div><script src="_static/documentation_options.js?v=d45e8c67"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

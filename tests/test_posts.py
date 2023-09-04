@@ -12,7 +12,8 @@ access_token = os.environ.get("LINKEDIN_ORGANIZATION_ACCESS_TOKEN")
 
 
 def test_share_and_delete_post():
-    r = share_post(
+    # create a post
+    r_create = share_post(
         access_token=access_token,
         comment="Hello, this is just a test...",
         author_type=author_type,
@@ -20,7 +21,11 @@ def test_share_and_delete_post():
         feed_distribution="NONE",
         visibility="LOGGED_IN",
     )
+    assert r_create.getcode() == 201
 
-    assert r.status_code == 201
+    # delete it
+    r_delete = delete_post(access_token, r_create.getheader("x-restli-id"))
+    assert r_delete.getcode() == 204
 
-    delete_post(access_token=access_token, linkedin_id=r.headers["x-restli-id"])
+
+# 'urn:li:share:7104319981684674560'

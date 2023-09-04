@@ -25,7 +25,7 @@ def _get_version() -> str:
     version_lines = [line.strip() for line in lines if line.startswith("version = ")]
 
     assert len(version_lines) == 1
-    return version_lines[0].split(" = ")[1]
+    return version_lines[0].split(" = ")[1].replace('"', "")
 
 
 version = _get_version()
@@ -42,7 +42,10 @@ extensions = [
 ]
 
 templates_path = ["_templates"]
-exclude_patterns = ["_build", "tests", "Thumbs.db", ".DS_Store"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+
+
+add_module_names = False
 
 
 # -- Options for HTML output -------------------------------------------------

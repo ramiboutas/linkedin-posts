@@ -3,6 +3,6 @@ ipython
 coverage
 pytest
 pyclean
-requests
 sphinx
-furo
+furo!=2023.8.19
+

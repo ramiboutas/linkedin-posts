@@ -6,9 +6,6 @@ def escape_little_text(text: str):
 
     Little attributes (mentions, hashtags) are not supported.
 
-    https://learn.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/little-text-format?view=li-lms-2023-08#text
-
-
     Parameters
     ----------
     text : str

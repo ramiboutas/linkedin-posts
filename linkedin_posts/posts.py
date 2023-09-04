@@ -1,9 +1,7 @@
-import requests
+import json
 
 import urllib.parse
 import urllib.request
-
-import json
 
 from .formats import escape_little_text
 
@@ -17,18 +15,12 @@ def share_post(
     feed_distribution: str = "MAIN_FEED",
     reshable_disabled: str = False,
 ):
-    """Share a post in Linkedin
-
-    Detailed parameters:
-
-    https://learn.microsoft.com/en-us/linkedin/marketing/integrations/community-management/shares/posts-api?view=li-lms-2023-08&tabs=http#post-schema
-
+    """Share a post
 
     Parameters
     ----------
     access_token : str
         Linkedin Access Token (OAuth 2.0).
-        https://learn.microsoft.com/en-us/linkedin/learning/getting-started/authentication#generating-an-access-token
 
     comment : str
         Commentary for the post.
@@ -42,6 +34,7 @@ def share_post(
 
     visibility : str
         Visibility restrictions on content
+        Default:
         Value choices: "CONNECTIONS", "PUBLIC", "LOGGED_IN" or "CONTAINER"
 
     feed_distribution : str
@@ -54,9 +47,13 @@ def share_post(
         If false, other reshare restrictions may still apply due to the post's
         visibility, container, or content type.
 
+    Returns
+    -------
+    http.client.HTTPResponse object
+
     """
 
-    url = "https://api.linkedin.com/rest/posts"
+    endpoint = "https://api.linkedin.com/rest/posts"
 
     headers = {
         "Authorization": "Bearer " + access_token,
@@ -79,19 +76,30 @@ def share_post(
     }
 
     data = json.dumps(payload).encode("utf-8")
-    req = urllib.request.Request(url, data=data, headers=headers, method="POST")
+    req = urllib.request.Request(endpoint, data=data, headers=headers, method="POST")
     response = urllib.request.urlopen(req)
-    return response
-    response_data = response.read().decode("utf-8")
-    return response_data
-    response = requests.post(url, headers=headers, json=payload)
     return response
 
 
 def delete_post(
     access_token: str,
-    linkedin_id,
+    urn: str,
 ):
+    """Delete a post
+
+    Parameters
+    ----------
+    access_token : str
+        Linkedin Access Token (OAuth 2.0).
+
+    urn : str
+        Linkedin post identification (ugcPostUrn or shareUrn)
+        Example "urn:li:share:6844785523593134080"
+    Returns
+    -------
+    http.client.HTTPResponse object
+    """
+
     headers = {
         "Content-Type": "application/json",
         "X-Restli-Protocol-Version": "2.0.0",
@@ -100,14 +108,7 @@ def delete_post(
         "Authorization": "Bearer " + access_token,
     }
 
-
-# Usage
-# access_token = "dummycode"
-# post_comment = "Check out my latest post!"
-
-# data = json.dumps(payload).encode("utf-8")
-# req = urllib.request.Request(url, data=data, headers=headers, method="POST")
-# response = urllib.request.urlopen(req)
-# response_data = response.read().decode("utf-8")
-# response = share_post(access_token, post_comment)
-# print(response)
+    endpoint = f"https://api.linkedin.com/rest/posts/{urllib.parse.quote(urn)}"
+    req = urllib.request.Request(endpoint, headers=headers, method="DELETE")
+    response = urllib.request.urlopen(req)
+    return response
