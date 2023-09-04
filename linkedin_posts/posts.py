@@ -95,9 +95,11 @@ def delete_post(
     urn : str
         Linkedin post identification (ugcPostUrn or shareUrn)
         Example "urn:li:share:6844785523593134080"
+
     Returns
     -------
     http.client.HTTPResponse object
+
     """
 
     headers = {
