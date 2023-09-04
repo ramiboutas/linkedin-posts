@@ -4,7 +4,7 @@ linkedin\_posts package
 Submodules
 ----------
 
-linkedin\_posts.formats module
+linkedin\_posts.formats
 ------------------------------
 
 .. automodule:: linkedin_posts.formats
@@ -12,7 +12,7 @@ linkedin\_posts.formats module
    :undoc-members:
    :show-inheritance:
 
-linkedin\_posts.posts module
+linkedin\_posts.posts
 ----------------------------
 
 .. automodule:: linkedin_posts.posts

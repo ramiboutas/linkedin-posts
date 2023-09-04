@@ -3,8 +3,8 @@ Installation and Setup
 
 
 
-Install with **pip**
----------------------
+Install with pip
+----------------
 
 .. code-block:: sh
 

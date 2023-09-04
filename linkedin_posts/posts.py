@@ -1,9 +1,9 @@
 import json
-
 import urllib.parse
 import urllib.request
 
 from .formats import escape_little_text
+from .headers import build_headers
 
 
 def share_post(
@@ -14,6 +14,7 @@ def share_post(
     visibility: str = "PUBLIC",
     feed_distribution: str = "MAIN_FEED",
     reshable_disabled: str = False,
+    payload_content=None,
 ):
     """Share a post
 
@@ -35,7 +36,7 @@ def share_post(
     visibility : str
         Visibility restrictions on content
         Default:
-        Value choices: "CONNECTIONS", "PUBLIC", "LOGGED_IN" or "CONTAINER"
+        Value choices: "CONNECTIONS", "PUBLIC", "LOGGED_IN" or Container URN
 
     feed_distribution : str
         Specifies the feeds distributed to within LinkedIn.
@@ -53,14 +54,9 @@ def share_post(
 
     """
 
-    endpoint = "https://api.linkedin.com/rest/posts"
+    url = "https://api.linkedin.com/rest/posts"
 
-    headers = {
-        "Authorization": "Bearer " + access_token,
-        "Content-Type": "application/json",
-        "X-Restli-Protocol-Version": "2.0.0",
-        "LinkedIn-Version": "202308",
-    }
+    headers = build_headers(access_token)
 
     payload = {
         "author": "urn:li:%s:%s" % (author_type, author_id),
@@ -75,16 +71,16 @@ def share_post(
         "isReshareDisabledByAuthor": reshable_disabled,
     }
 
+    if payload_content:
+        payload["content"] = payload_content
+
     data = json.dumps(payload).encode("utf-8")
-    req = urllib.request.Request(endpoint, data=data, headers=headers, method="POST")
+    req = urllib.request.Request(url, data=data, headers=headers, method="POST")
     response = urllib.request.urlopen(req)
     return response
 
 
-def delete_post(
-    access_token: str,
-    urn: str,
-):
+def delete_post(access_token: str, urn: str):
     """Delete a post
 
     Parameters
@@ -102,15 +98,8 @@ def delete_post(
 
     """
 
-    headers = {
-        "Content-Type": "application/json",
-        "X-Restli-Protocol-Version": "2.0.0",
-        "LinkedIn-Version": "202308",
-        "X-RestLi-Method": "DELETE",
-        "Authorization": "Bearer " + access_token,
-    }
-
-    endpoint = f"https://api.linkedin.com/rest/posts/{urllib.parse.quote(urn)}"
-    req = urllib.request.Request(endpoint, headers=headers, method="DELETE")
+    url = "https://api.linkedin.com/rest/posts/%s" % urllib.parse.quote(urn)
+    headers = build_headers(access_token, extra={"X-RestLi-Method": "DELETE"})
+    req = urllib.request.Request(url, headers=headers, method="DELETE")
     response = urllib.request.urlopen(req)
     return response
