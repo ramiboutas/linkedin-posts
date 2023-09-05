@@ -4,8 +4,8 @@ import urllib.request
 import json
 
 
-def get_access_token(client_id, client_secret, redirect_uri, authorization_code):
-    """ """
+def regenerate_access_token(client_id, client_secret, redirect_uri, authorization_code):
+    """Request access token"""
     endpoint = "https://www.linkedin.com/oauth/v2/accessToken"
     data = {
         "grant_type": "authorization_code",

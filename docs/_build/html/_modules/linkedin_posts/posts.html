@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 7.2.5 and Furo 2023.08.17 -->
-        <title>linkedin_posts.posts - linkedin-posts 0.0.2 documentation</title>
+        <title>linkedin_posts.posts - linkedin-posts 0.0.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -122,7 +122,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">linkedin-posts 0.0.2 documentation</div></a>
+      <a href="../../index.html"><div class="brand">linkedin-posts 0.0.3 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -145,7 +145,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">linkedin-posts 0.0.2 documentation</span>
+  <span class="sidebar-brand-text">linkedin-posts 0.0.3 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -196,11 +196,11 @@
         <article role="main">
           <h1>Source code for linkedin_posts.posts</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">json</span>
-
 <span class="kn">import</span> <span class="nn">urllib.parse</span>
 <span class="kn">import</span> <span class="nn">urllib.request</span>
 
 <span class="kn">from</span> <span class="nn">.formats</span> <span class="kn">import</span> <span class="n">escape_little_text</span>
+<span class="kn">from</span> <span class="nn">.headers</span> <span class="kn">import</span> <span class="n">build_headers</span>
 
 
 <div class="viewcode-block" id="share_post">
@@ -213,6 +213,7 @@
     <span class="n">visibility</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;PUBLIC&quot;</span><span class="p">,</span>
     <span class="n">feed_distribution</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;MAIN_FEED&quot;</span><span class="p">,</span>
     <span class="n">reshable_disabled</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">payload_content</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Share a post</span>
 
@@ -234,7 +235,7 @@
 <span class="sd">    visibility : str</span>
 <span class="sd">        Visibility restrictions on content</span>
 <span class="sd">        Default:</span>
-<span class="sd">        Value choices: &quot;CONNECTIONS&quot;, &quot;PUBLIC&quot;, &quot;LOGGED_IN&quot; or &quot;CONTAINER&quot;</span>
+<span class="sd">        Value choices: &quot;CONNECTIONS&quot;, &quot;PUBLIC&quot;, &quot;LOGGED_IN&quot; or Container URN</span>
 
 <span class="sd">    feed_distribution : str</span>
 <span class="sd">        Specifies the feeds distributed to within LinkedIn.</span>
@@ -252,14 +253,9 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">&quot;https://api.linkedin.com/rest/posts&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://api.linkedin.com/rest/posts&quot;</span>
 
-    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer &quot;</span> <span class="o">+</span> <span class="n">access_token</span><span class="p">,</span>
-        <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;X-Restli-Protocol-Version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.0&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;LinkedIn-Version&quot;</span><span class="p">:</span> <span class="s2">&quot;202308&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="n">build_headers</span><span class="p">(</span><span class="n">access_token</span><span class="p">)</span>
 
     <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;urn:li:</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">author_type</span><span class="p">,</span> <span class="n">author_id</span><span class="p">),</span>
@@ -274,8 +270,11 @@
         <span class="s2">&quot;isReshareDisabledByAuthor&quot;</span><span class="p">:</span> <span class="n">reshable_disabled</span><span class="p">,</span>
     <span class="p">}</span>
 
+    <span class="k">if</span> <span class="n">payload_content</span><span class="p">:</span>
+        <span class="n">payload</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">payload_content</span>
+
     <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
-    <span class="n">req</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;POST&quot;</span><span class="p">)</span>
+    <span class="n">req</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;POST&quot;</span><span class="p">)</span>
     <span class="n">response</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">response</span></div>
 
@@ -283,10 +282,7 @@
 
 <div class="viewcode-block" id="delete_post">
 <a class="viewcode-back" href="../../linkedin_posts.html#linkedin_posts.posts.delete_post">[docs]</a>
-<span class="k">def</span> <span class="nf">delete_post</span><span class="p">(</span>
-    <span class="n">access_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">urn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-<span class="p">):</span>
+<span class="k">def</span> <span class="nf">delete_post</span><span class="p">(</span><span class="n">access_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">urn</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Delete a post</span>
 
 <span class="sd">    Parameters</span>
@@ -304,16 +300,9 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;X-Restli-Protocol-Version&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0.0&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;LinkedIn-Version&quot;</span><span class="p">:</span> <span class="s2">&quot;202308&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;X-RestLi-Method&quot;</span><span class="p">:</span> <span class="s2">&quot;DELETE&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer &quot;</span> <span class="o">+</span> <span class="n">access_token</span><span class="p">,</span>
-    <span class="p">}</span>
-
-    <span class="n">endpoint</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://api.linkedin.com/rest/posts/</span><span class="si">{</span><span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">urn</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="n">req</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;DELETE&quot;</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://api.linkedin.com/rest/posts/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">urn</span><span class="p">)</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="n">build_headers</span><span class="p">(</span><span class="n">access_token</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;X-RestLi-Method&quot;</span><span class="p">:</span> <span class="s2">&quot;DELETE&quot;</span><span class="p">})</span>
+    <span class="n">req</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;DELETE&quot;</span><span class="p">)</span>
     <span class="n">response</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">response</span></div>
 
@@ -349,7 +338,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+</div><script src="../../_static/documentation_options.js?v=47de8214"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>

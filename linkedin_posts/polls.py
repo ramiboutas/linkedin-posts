@@ -19,6 +19,7 @@ def share_poll(
     options: list[str] = None,
     duration: str = "THREE_DAYS",
 ):
+    """Share a poll"""
     content = {
         "poll": {
             "question": question,

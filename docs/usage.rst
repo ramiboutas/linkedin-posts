@@ -20,7 +20,6 @@ Sharing a post
   # Interesting parameters to check:
   # response.getheader("x-restli-id") will return the Linkedin Post ID
   # response.code will return 201 if request proccessed correctly
-  # response.msg
   ...
 
 

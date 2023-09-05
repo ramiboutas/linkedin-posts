@@ -5,7 +5,7 @@ build-backend = 'setuptools.build_meta'
 
 [project]
 name = "linkedin-posts"
-version = "0.0.3"
+version = "0.0.4"
 authors = [{ name = "Rami", email = "ramiboutas@protonmail.com" }]
 description = "Utility to share Linkedin posts using the Linkedin Marketing API"
 readme = "README.md"
@@ -19,7 +19,7 @@ classifiers = [
 
 ]
 
-dependencies = []
+dependencies = ["requests"]
 
 [tool.setuptools]
 
