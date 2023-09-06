@@ -58,8 +58,8 @@ It it possible to share a post with a poll by using the following code:
   response = share_poll(
     "<HERE YOUR ACCESS TOKEN>",
     comment="Hello, this is just a test...",
-    question="Is this is a nice poll?",
-    options=["Yes", "No", "I do not care"],
+    poll_question="Is this is a nice poll?",
+    poll_options=["Yes", "No", "I do not care"],
     author_type="organization",
     author_id="71513925",
   )
