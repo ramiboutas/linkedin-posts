@@ -14,7 +14,7 @@ def share_post(
     visibility: str = "PUBLIC",
     feed_distribution: str = "MAIN_FEED",
     reshable_disabled: str = False,
-    payload_content=None,
+    _payload_content=None,
 ):
     """Share a post
 
@@ -71,13 +71,13 @@ def share_post(
         "isReshareDisabledByAuthor": reshable_disabled,
     }
 
-    if payload_content:
-        payload["content"] = payload_content
+    if _payload_content:
+        payload["content"] = _payload_content
 
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(url, data=data, headers=headers, method="POST")
-    response = urllib.request.urlopen(req)
-    return response
+    with urllib.request.urlopen(req) as response:
+        return response
 
 
 def delete_post(access_token: str, urn: str):
@@ -101,5 +101,35 @@ def delete_post(access_token: str, urn: str):
     url = "https://api.linkedin.com/rest/posts/%s" % urllib.parse.quote(urn)
     headers = build_headers(access_token, extra={"X-RestLi-Method": "DELETE"})
     req = urllib.request.Request(url, headers=headers, method="DELETE")
-    response = urllib.request.urlopen(req)
-    return response
+    with urllib.request.urlopen(req) as response:
+        return response
+
+
+def share_post_with_media(
+    access_token: str,
+    comment: str,
+    author_type: str,
+    author_id: str | int,
+    media_id: str,
+    media_title: str = None,
+    visibility: str = "PUBLIC",
+    feed_distribution: str = "MAIN_FEED",
+    reshable_disabled: str = False,
+):
+    """Share a post with media content"""
+
+    content = {"media": {"id": media_id}}
+
+    if media_title:
+        content["media"]["title"] = media_title
+
+    return share_post(
+        access_token=access_token,
+        comment=comment,
+        author_type=author_type,
+        author_id=author_id,
+        visibility=visibility,
+        feed_distribution=feed_distribution,
+        reshable_disabled=reshable_disabled,
+        _payload_content=content,
+    )

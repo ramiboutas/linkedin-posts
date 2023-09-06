@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="linkedin_posts" href="modules.html" /><link rel="prev" title="Installation and Setup" href="install_and_setup.html" />
 
     <!-- Generated with Sphinx 7.2.5 and Furo 2023.08.17 -->
-        <title>Usage - linkedin-posts 0.0.4 documentation</title>
+        <title>Usage - linkedin-posts 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">linkedin-posts 0.0.4 documentation</div></a>
+      <a href="index.html"><div class="brand">linkedin-posts 0.0.5 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -146,7 +146,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">linkedin-posts 0.0.4 documentation</span>
+  <span class="sidebar-brand-text">linkedin-posts 0.0.5 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -198,8 +198,10 @@
         <article role="main">
           <section id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h1>
-<section id="sharing-a-post">
-<h2>Sharing a post<a class="headerlink" href="#sharing-a-post" title="Link to this heading">#</a></h2>
+<section id="share-a-post">
+<h2>Share a post<a class="headerlink" href="#share-a-post" title="Link to this heading">#</a></h2>
+<p>By the time I am writing this sentence, this is the most useful function of this package.</p>
+<p>Share a post in by using the function <cite>share_post</cite> with some arguments.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">linkedin_posts.posts</span> <span class="kn">import</span> <span class="n">share_post</span>
 
 <span class="n">response</span> <span class="o">=</span> <span class="n">share_post</span><span class="p">(</span>
@@ -217,8 +219,10 @@
 </pre></div>
 </div>
 </section>
-<section id="deleting-a-post">
-<h2>Deleting a post<a class="headerlink" href="#deleting-a-post" title="Link to this heading">#</a></h2>
+<section id="delete-a-post">
+<h2>Delete a post<a class="headerlink" href="#delete-a-post" title="Link to this heading">#</a></h2>
+<p>Deleting a post is very straightforward.</p>
+<p>Just just need the access token and pass the Linkedin Post ID.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">linkedin_posts.posts</span> <span class="kn">import</span> <span class="n">delete_post</span>
 
 <span class="n">response</span> <span class="o">=</span> <span class="n">delete_post</span><span class="p">(</span><span class="s2">&quot;&lt;HERE YOUR ACCESS TOKEN&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;urn:li:share:7104319981684674560&quot;</span><span class="p">)</span>
@@ -226,6 +230,51 @@
 <span class="c1"># response.code will return 204 if request proccessed correctly</span>
 </pre></div>
 </div>
+</section>
+<section id="create-a-poll-post">
+<h2>Create a poll post<a class="headerlink" href="#create-a-poll-post" title="Link to this heading">#</a></h2>
+<p>It it possible to share a post with a poll by using the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">linkedin_posts.polls</span> <span class="kn">import</span> <span class="n">share_poll</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">share_poll</span><span class="p">(</span>
+  <span class="s2">&quot;&lt;HERE YOUR ACCESS TOKEN&gt;&quot;</span><span class="p">,</span>
+  <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Hello, this is just a test...&quot;</span><span class="p">,</span>
+  <span class="n">question</span><span class="o">=</span><span class="s2">&quot;Is this is a nice poll?&quot;</span><span class="p">,</span>
+  <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Yes&quot;</span><span class="p">,</span> <span class="s2">&quot;No&quot;</span><span class="p">,</span> <span class="s2">&quot;I do not care&quot;</span><span class="p">],</span>
+  <span class="n">author_type</span><span class="o">=</span><span class="s2">&quot;organization&quot;</span><span class="p">,</span>
+  <span class="n">author_id</span><span class="o">=</span><span class="s2">&quot;71513925&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># do something with response if you need to!</span>
+</pre></div>
+</div>
+<p>Now go to your <a class="reference external" href="https://www.linkedin.com/company/nice-cv/">Linkedin page</a>  and check your published poll!</p>
+<a class="reference external image-reference" href="https://www.linkedin.com/company/nice-cv/"><img alt="_images/poll_example.png" src="_images/poll_example.png" /></a>
+</section>
+<section id="post-with-media">
+<h2>Post with media<a class="headerlink" href="#post-with-media" title="Link to this heading">#</a></h2>
+<p>In order to create an post with a nice picture you can use this code.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># upload a image</span>
+<span class="n">upload_request</span><span class="p">,</span> <span class="n">image_urn</span> <span class="o">=</span> <span class="n">upload_image</span><span class="p">(</span>
+    <span class="s2">&quot;&lt;HERE YOUR ACCESS TOKEN&gt;&quot;</span><span class="p">,</span>
+    <span class="n">file</span><span class="o">=</span><span class="s2">&quot;docs/img/nicecv.jpg&quot;</span><span class="p">,</span>
+    <span class="n">author_type</span><span class="o">=</span><span class="n">author_type</span><span class="p">,</span>
+    <span class="n">author_id</span><span class="o">=</span><span class="n">author_id</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># create a post with the uploaded image</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">share_post_with_media</span><span class="p">(</span>
+    <span class="s2">&quot;&lt;HERE YOUR ACCESS TOKEN&gt;&quot;</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;Do you like this nice cv?&quot;</span><span class="p">,</span>
+    <span class="n">author_type</span><span class="o">=</span><span class="n">author_type</span><span class="p">,</span>
+    <span class="n">author_id</span><span class="o">=</span><span class="n">author_id</span><span class="p">,</span>
+    <span class="n">media_id</span><span class="o">=</span><span class="n">image_urn</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>And voilà.</p>
+<p>Here is your posts!</p>
+<a class="reference external image-reference" href="https://www.linkedin.com/company/nice-cv/"><img alt="_images/image_with_post_example.png" src="_images/image_with_post_example.png" /></a>
 </section>
 </section>
 
@@ -285,8 +334,10 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Usage</a><ul>
-<li><a class="reference internal" href="#sharing-a-post">Sharing a post</a></li>
-<li><a class="reference internal" href="#deleting-a-post">Deleting a post</a></li>
+<li><a class="reference internal" href="#share-a-post">Share a post</a></li>
+<li><a class="reference internal" href="#delete-a-post">Delete a post</a></li>
+<li><a class="reference internal" href="#create-a-poll-post">Create a poll post</a></li>
+<li><a class="reference internal" href="#post-with-media">Post with media</a></li>
 </ul>
 </li>
 </ul>
@@ -298,7 +349,7 @@
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=8c5712d9"></script>
+</div><script src="_static/documentation_options.js?v=282f96c0"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

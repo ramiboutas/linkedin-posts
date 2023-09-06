@@ -1,11 +1,15 @@
 """
 TODO: Future work
+
+06.09.2023: I am not sure if I am going to do this
+
+
 """
 
 from . import posts
 
 
-class Client:
+class Client(object):
     def __init__(self, access_token, author_type, author_id) -> None:
         self.access_token = access_token
         self.author_type = author_type

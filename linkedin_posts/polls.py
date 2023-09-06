@@ -2,7 +2,6 @@ import json
 import urllib.parse
 import urllib.request
 
-from .headers import build_headers
 
 from .posts import share_post
 
@@ -15,16 +14,16 @@ def share_poll(
     visibility: str = "PUBLIC",
     feed_distribution: str = "MAIN_FEED",
     reshable_disabled: str = False,
-    question: str = None,
-    options: list[str] = None,
-    duration: str = "THREE_DAYS",
+    poll_question: str = None,
+    poll_options: list[str] = None,
+    poll_duration: str = "THREE_DAYS",
 ):
     """Share a poll"""
     content = {
         "poll": {
-            "question": question,
-            "options": [{"text": option} for option in options],
-            "settings": {"duration": duration},
+            "question": poll_question,
+            "options": [{"text": option} for option in poll_options],
+            "settings": {"duration": poll_duration},
         }
     }
 
@@ -36,5 +35,5 @@ def share_poll(
         visibility=visibility,
         feed_distribution=feed_distribution,
         reshable_disabled=reshable_disabled,
-        payload_content=content,
+        _payload_content=content,
     )
