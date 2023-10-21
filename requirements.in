@@ -5,4 +5,4 @@ pytest
 pyclean
 sphinx
 furo!=2023.8.19
-
+requests

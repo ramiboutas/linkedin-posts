@@ -16,4 +16,4 @@ def escape_little_text(text: str):
     Escaped text : str
 
     """
-    return re.sub(r"([,{}@[]()<>#*_~])", r"\\\1", text)
+    return re.sub(r"([,{}@[]()<>#*_~,])", r"\\\1", text)

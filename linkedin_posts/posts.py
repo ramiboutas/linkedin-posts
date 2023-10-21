@@ -2,7 +2,6 @@ import json
 import urllib.parse
 import urllib.request
 
-from .formats import escape_little_text
 from .headers import build_headers
 
 
@@ -60,7 +59,7 @@ def share_post(
 
     payload = {
         "author": "urn:li:%s:%s" % (author_type, author_id),
-        "commentary": escape_little_text(comment),
+        "commentary": comment,
         "visibility": visibility,
         "distribution": {
             "feedDistribution": feed_distribution,
