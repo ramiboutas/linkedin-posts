@@ -9,17 +9,17 @@ def share_poll(
     visibility: str = "PUBLIC",
     feed_distribution: str = "MAIN_FEED",
     reshable_disabled: str = False,
-    poll_question: str = None,
-    poll_options: list[str] = None,
-    poll_duration: str = "THREE_DAYS",
+    question: str = None,
+    options: list[str] = None,
+    duration: str = "THREE_DAYS",
     use_requests: bool = False,
 ):
     """Share a poll"""
     content = {
         "poll": {
-            "question": poll_question,
-            "options": [{"text": option} for option in poll_options],
-            "settings": {"duration": poll_duration},
+            "question": question,
+            "options": [{"text": option} for option in options],
+            "settings": {"duration": duration},
         }
     }
 
@@ -31,6 +31,6 @@ def share_poll(
         visibility=visibility,
         feed_distribution=feed_distribution,
         reshable_disabled=reshable_disabled,
-        _payload_content=content,
+        content=content,
         use_requests=use_requests,
     )

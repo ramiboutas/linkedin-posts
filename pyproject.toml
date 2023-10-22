@@ -13,7 +13,7 @@ classifiers = [
 ]
 
 name = "linkedin-posts"
-version = "0.0.7"
+version = "0.0.8"
 authors = [{ name = "Rami", email = "ramiboutas@protonmail.com" }]
 description = "Utility to share Linkedin posts using the Linkedin Marketing API"
 readme = "README.md"

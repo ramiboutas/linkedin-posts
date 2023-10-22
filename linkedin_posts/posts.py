@@ -14,7 +14,8 @@ def share_post(
     visibility: str = "PUBLIC",
     feed_distribution: str = "MAIN_FEED",
     reshable_disabled: str = False,
-    _payload_content=None,
+    content=None,
+    container=None,
     use_requests: bool = False,
 ):
     """Share a post
@@ -74,8 +75,11 @@ def share_post(
         "isReshareDisabledByAuthor": reshable_disabled,
     }
 
-    if _payload_content:
-        payload["content"] = _payload_content
+    if content:
+        payload["content"] = content
+
+    if container:
+        payload["container"] = container
 
     data = json.dumps(payload).encode("utf-8")
 
@@ -132,6 +136,7 @@ def share_post_with_media(
     visibility: str = "PUBLIC",
     feed_distribution: str = "MAIN_FEED",
     reshable_disabled: str = False,
+    container=None,
     use_requests: bool = False,
 ):
     """Share a post with media content"""
@@ -149,6 +154,7 @@ def share_post_with_media(
         visibility=visibility,
         feed_distribution=feed_distribution,
         reshable_disabled=reshable_disabled,
-        _payload_content=content,
+        content=content,
+        container=container,
         use_requests=use_requests,
     )

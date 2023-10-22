@@ -16,8 +16,8 @@ def test_share_and_delete_poll_post():
     r_create = share_poll(
         access_token,
         comment="Hello, this is just a test...",
-        poll_question="Is this is a nice poll?",
-        poll_options=["Yes", "No", "I do not care"],
+        question="Is this is a nice poll?",
+        options=["Yes", "No", "I do not care"],
         author_type=author_type,
         author_id=author_id,
         feed_distribution="NONE",
