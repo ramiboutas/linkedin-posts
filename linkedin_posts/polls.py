@@ -1,8 +1,3 @@
-import json
-import urllib.parse
-import urllib.request
-
-
 from .posts import share_post
 
 
@@ -17,6 +12,7 @@ def share_poll(
     poll_question: str = None,
     poll_options: list[str] = None,
     poll_duration: str = "THREE_DAYS",
+    use_requests: bool = False,
 ):
     """Share a poll"""
     content = {
@@ -36,4 +32,5 @@ def share_poll(
         feed_distribution=feed_distribution,
         reshable_disabled=reshable_disabled,
         _payload_content=content,
+        use_requests=use_requests,
     )

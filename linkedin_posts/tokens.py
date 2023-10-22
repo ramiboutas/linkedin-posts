@@ -4,18 +4,23 @@ import urllib.request
 import json
 
 
-def regenerate_access_token(client_id, client_secret, redirect_uri, authorization_code):
+def regenerate_access_token(
+    client_id,
+    client_secret,
+    redirect_uri,
+    authorization_code,
+):
     """Request access token"""
-    endpoint = "https://www.linkedin.com/oauth/v2/accessToken"
-    data = {
+    url = "https://www.linkedin.com/oauth/v2/accessToken"
+    payload = {
         "grant_type": "authorization_code",
         "code": authorization_code,
         "redirect_uri": redirect_uri,
         "client_id": client_id,
         "client_secret": client_secret,
     }
-    data = urllib.parse.urlencode(data).encode("utf-8")
-    req = urllib.request.Request(endpoint, data=data, method="POST")
+    data = urllib.parse.urlencode(payload).encode("utf-8")
+    req = urllib.request.Request(url, data=data, method="POST")
     response = urllib.request.urlopen(req)
     response_data = response.read().decode("utf-8")
     access_token = json.loads(response_data)["access_token"]

@@ -2,33 +2,13 @@
 This module takes care of Linkedin Images API and Upload Assets
 """
 import json
+import requests
 import urllib.parse
 import urllib.request
 from pathlib import Path
 
 from .headers import build_headers
 from .exceptions import FileInputNotSupported
-
-
-# TODO: try to remove this dependency: requests
-# use _alternative=True in func upload_image to test with urllib!
-import requests
-
-
-def _alternative_upload(url, headers, data):
-    ########## For testing purposes ########
-    ########################################
-    request = urllib.request.Request(url, data=data, headers=headers, method="PUT")
-    try:
-        with urllib.request.urlopen(request) as response:
-            response_content = response.read()
-            return response, response_content
-    except urllib.error.HTTPError as e:
-        print(f"HTTPError: {e}")
-        raise e
-    except urllib.error.URLError as e:
-        print(f"URLError: {e}")
-        raise e
 
 
 def _init_upload(access_token, author_type, author_id):
@@ -50,7 +30,6 @@ def upload_image(
     author_type,
     author_id,
     file: bytes | Path | str,
-    _alternative=False,
 ):
     """Upload an image
 
@@ -86,9 +65,6 @@ def upload_image(
 
     upload_url, image_urn = _init_upload(access_token, author_type, author_id)
     headers = {"Authorization": "Bearer " + access_token}
-
-    if _alternative:
-        return _alternative_upload(upload_url, headers, fileb)
 
     response = requests.put(upload_url, headers=headers, data=fileb)
     return response, image_urn

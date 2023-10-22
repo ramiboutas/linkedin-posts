@@ -1,4 +1,5 @@
 import json
+import requests
 import urllib.parse
 import urllib.request
 
@@ -14,6 +15,7 @@ def share_post(
     feed_distribution: str = "MAIN_FEED",
     reshable_disabled: str = False,
     _payload_content=None,
+    use_requests: bool = False,
 ):
     """Share a post
 
@@ -47,10 +49,12 @@ def share_post(
         If false, other reshare restrictions may still apply due to the post's
         visibility, container, or content type.
 
+    use_requests : bool
+        Use the _requests_ package
+
     Returns
     -------
-    http.client.HTTPResponse object
-
+    http.client.HTTPResponse object or requests.models.Response object (if $use_requests$ is set to $True$)
     """
 
     url = "https://api.linkedin.com/rest/posts"
@@ -74,12 +78,20 @@ def share_post(
         payload["content"] = _payload_content
 
     data = json.dumps(payload).encode("utf-8")
+
+    if use_requests:
+        return requests.post(url, headers=headers, data=data)
+
     req = urllib.request.Request(url, data=data, headers=headers, method="POST")
     with urllib.request.urlopen(req) as response:
         return response
 
 
-def delete_post(access_token: str, urn: str):
+def delete_post(
+    access_token: str,
+    urn: str,
+    use_requests: bool = False,
+):
     """Delete a post
 
     Parameters
@@ -90,15 +102,21 @@ def delete_post(access_token: str, urn: str):
     urn : str
         Linkedin post identification (ugcPostUrn or shareUrn)
         Example "urn:li:share:6844785523593134080"
+    use_requests : bool
+        Use the _requests_ package
 
     Returns
     -------
-    http.client.HTTPResponse object
+    http.client.HTTPResponse object or requests.models.Response object (if $use_requests$ is set to $True$)
 
     """
 
     url = "https://api.linkedin.com/rest/posts/%s" % urllib.parse.quote(urn)
     headers = build_headers(access_token, extra={"X-RestLi-Method": "DELETE"})
+
+    if use_requests:
+        return requests.delete(url, headers=headers)
+
     req = urllib.request.Request(url, headers=headers, method="DELETE")
     with urllib.request.urlopen(req) as response:
         return response
@@ -114,6 +132,7 @@ def share_post_with_media(
     visibility: str = "PUBLIC",
     feed_distribution: str = "MAIN_FEED",
     reshable_disabled: str = False,
+    use_requests: bool = False,
 ):
     """Share a post with media content"""
 
@@ -131,4 +150,5 @@ def share_post_with_media(
         feed_distribution=feed_distribution,
         reshable_disabled=reshable_disabled,
         _payload_content=content,
+        use_requests=use_requests,
     )
