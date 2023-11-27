@@ -15,7 +15,7 @@ def _init_upload(access_token, author_type, author_id):
     """Initialize Image Upload"""
     url = "https://api.linkedin.com/rest/images?action=initializeUpload"
     headers = build_headers(access_token)
-    author = "urn:li:%s:%s" % (author_type, author_id)
+    author = f"urn:li:{author_type}:{author_id}"
     payload = {"initializeUploadRequest": {"owner": author}}
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(url, data=data, headers=headers, method="POST")

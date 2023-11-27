@@ -13,7 +13,7 @@ classifiers = [
 ]
 
 name = "linkedin-posts"
-version = "0.0.8"
+version = "0.0.9"
 authors = [{ name = "Rami", email = "ramiboutas@protonmail.com" }]
 description = "Utility to share Linkedin posts using the Linkedin Marketing API"
 readme = "README.md"
@@ -28,7 +28,6 @@ packages = ["linkedin_posts"]
 [project.urls]
 "Homepage" = "https://github.com/ramiboutas/linkedin-posts"
 "Bug Tracker" = "https://github.com/ramiboutas/linkedin-posts/issues"
-"Documentation" = "https://linkedin-posts.ramiboutas.com"
 
 [tool.coverage.run]
 branch = true

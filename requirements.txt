@@ -74,7 +74,9 @@ pytest==7.4.0
 python-dotenv==1.0.0
     # via -r requirements.in
 requests==2.31.0
-    # via sphinx
+    # via
+    #   -r requirements.in
+    #   sphinx
 six==1.16.0
     # via asttokens
 snowballstemmer==2.2.0

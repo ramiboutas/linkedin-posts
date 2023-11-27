@@ -1,14 +1,8 @@
-import os
-import dotenv
+from .secrets import author_type, author_id, access_token
 
-dotenv.load_dotenv(".env")
 
 from linkedin_posts.polls import share_poll
 from linkedin_posts.posts import delete_post
-
-author_type = "organization"
-author_id = os.environ.get("LINKEDIN_ORGANIZATION_ID")
-access_token = os.environ.get("LINKEDIN_ORGANIZATION_ACCESS_TOKEN")
 
 
 def test_share_and_delete_poll_post():
@@ -23,8 +17,8 @@ def test_share_and_delete_poll_post():
         feed_distribution="NONE",
         visibility="LOGGED_IN",
     )
-    assert r_create.getcode() == 201
+    assert r_create.status_code == 201
 
     # delete it
-    r_delete = delete_post(access_token, r_create.getheader("x-restli-id"))
-    assert r_delete.getcode() == 204
+    r_delete = delete_post(access_token, r_create.headers["x-restli-id"])
+    assert r_delete.status_code == 204
