@@ -12,6 +12,7 @@ def share_poll(
     question: str = None,
     options: list[str] = None,
     duration: str = "THREE_DAYS",
+    container: str = None,
     use_requests: bool = False,  # TODO: plan to remove
 ):
     """Share a poll"""
@@ -32,4 +33,5 @@ def share_poll(
         feed_distribution=feed_distribution,
         reshable_disabled=reshable_disabled,
         content=content,
+        container=container,
     )

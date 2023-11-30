@@ -91,7 +91,7 @@ To create a post with a nice picture you can use this code.
 # upload a image
 upload_request, image_urn = upload_image(
     "<HERE YOUR ACCESS TOKEN>",
-    file="docs/img/nicecv.jpg",
+    file="img/nicecv.jpg",
     author_type=author_type,
     author_id=author_id,
 )
