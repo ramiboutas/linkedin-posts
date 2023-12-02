@@ -16,7 +16,6 @@ def share_post(
     reshable_disabled: str = False,
     content=None,
     container=None,
-    use_requests: bool = False,  # TODO: plan to remove
 ):
     """Share a post
 
@@ -83,11 +82,7 @@ def share_post(
     return requests.post(url, headers=headers, data=data)
 
 
-def delete_post(
-    access_token: str,
-    urn: str,
-    use_requests: bool = False,  # TODO: plan to remove
-):
+def delete_post(access_token: str, urn: str):
     """Delete a post
 
     Parameters
@@ -124,7 +119,6 @@ def share_post_with_media(
     feed_distribution: str = "MAIN_FEED",
     reshable_disabled: str = False,
     container=None,
-    use_requests: bool = False,  # TODO: plan to remove
 ):
     """Share a post with media content"""
 

@@ -13,7 +13,6 @@ def share_poll(
     options: list[str] = None,
     duration: str = "THREE_DAYS",
     container: str = None,
-    use_requests: bool = False,  # TODO: plan to remove
 ):
     """Share a poll"""
     content = {
