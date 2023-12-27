@@ -4,6 +4,7 @@ import urllib.parse
 import urllib.request
 
 from .headers import build_headers
+from .constants import LINKEDIN_VERSION
 
 
 def share_post(
@@ -16,6 +17,7 @@ def share_post(
     reshable_disabled: str = False,
     content=None,
     container=None,
+    li_version: str = LINKEDIN_VERSION,
 ):
     """Share a post
 
@@ -56,7 +58,7 @@ def share_post(
 
     url = "https://api.linkedin.com/rest/posts"
 
-    headers = build_headers(access_token)
+    headers = build_headers(access_token, li_version=li_version)
 
     payload = {
         "author": f"urn:li:{author_type}:{author_id}",
@@ -82,7 +84,7 @@ def share_post(
     return requests.post(url, headers=headers, data=data)
 
 
-def delete_post(access_token: str, urn: str):
+def delete_post(access_token: str, urn: str, li_version: str = LINKEDIN_VERSION):
     """Delete a post
 
     Parameters
@@ -103,7 +105,11 @@ def delete_post(access_token: str, urn: str):
     """
 
     url = "https://api.linkedin.com/rest/posts/%s" % urllib.parse.quote(urn)
-    headers = build_headers(access_token, extra={"X-RestLi-Method": "DELETE"})
+    headers = build_headers(
+        access_token,
+        extra={"X-RestLi-Method": "DELETE"},
+        li_version=li_version,
+    )
 
     return requests.delete(url, headers=headers)
 
@@ -119,6 +125,7 @@ def share_post_with_media(
     feed_distribution: str = "MAIN_FEED",
     reshable_disabled: str = False,
     container=None,
+    li_version: str = LINKEDIN_VERSION,
 ):
     """Share a post with media content"""
 
@@ -137,4 +144,5 @@ def share_post_with_media(
         reshable_disabled=reshable_disabled,
         content=content,
         container=container,
+        li_version=li_version,
     )

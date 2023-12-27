@@ -5,6 +5,7 @@ import requests
 import urllib.parse
 
 from .headers import build_headers
+from .constants import LINKEDIN_VERSION
 
 
 def comment_in_a_post(
@@ -14,10 +15,11 @@ def comment_in_a_post(
     author_type: str,
     author_id: str | int,
     content=None,
+    li_version: str = LINKEDIN_VERSION,
 ):
     url = f"https://api.linkedin.com/rest/socialActions/{urllib.parse.quote(post_urn)}/comments"
 
-    headers = build_headers(access_token)
+    headers = build_headers(access_token, li_version=li_version)
 
     payload = {
         "actor": f"urn:li:{author_type}:{author_id}",

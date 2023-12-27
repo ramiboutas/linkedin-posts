@@ -9,12 +9,18 @@ from pathlib import Path
 
 from .headers import build_headers
 from .exceptions import FileInputNotSupported
+from .constants import LINKEDIN_VERSION
 
 
-def _init_upload(access_token, author_type, author_id):
+def _init_upload(
+    access_token,
+    author_type,
+    author_id,
+    li_version: str = LINKEDIN_VERSION,
+):
     """Initialize Image Upload"""
     url = "https://api.linkedin.com/rest/images?action=initializeUpload"
-    headers = build_headers(access_token)
+    headers = build_headers(access_token, li_version=li_version)
     author = f"urn:li:{author_type}:{author_id}"
     payload = {"initializeUploadRequest": {"owner": author}}
     data = json.dumps(payload).encode("utf-8")
@@ -30,6 +36,7 @@ def upload_image(
     author_type,
     author_id,
     file: bytes | Path | str,
+    li_version: str = LINKEDIN_VERSION,
 ):
     """Upload an image
 
@@ -63,14 +70,23 @@ def upload_image(
     else:
         raise FileInputNotSupported
 
-    upload_url, image_urn = _init_upload(access_token, author_type, author_id)
+    upload_url, image_urn = _init_upload(
+        access_token,
+        author_type,
+        author_id,
+        li_version=li_version,
+    )
     headers = {"Authorization": "Bearer " + access_token}
 
     response = requests.put(upload_url, headers=headers, data=fileb)
     return response, image_urn
 
 
-def get_image(access_token, image_urn: str):
+def get_image(
+    access_token,
+    image_urn: str,
+    li_version: str = LINKEDIN_VERSION,
+):
     """Get a single image
 
     Parameters
@@ -87,7 +103,7 @@ def get_image(access_token, image_urn: str):
         (http.client.HTTPResponse object, data:dict)
 
     """
-    headers = build_headers(access_token)
+    headers = build_headers(access_token, li_version=li_version)
     url = f"https://api.linkedin.com/rest/images/{urllib.parse.quote(image_urn)}"
     req = urllib.request.Request(url, headers=headers)
     response = urllib.request.urlopen(req)

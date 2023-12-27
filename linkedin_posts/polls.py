@@ -1,4 +1,5 @@
 from .posts import share_post
+from .constants import LINKEDIN_VERSION
 
 
 def share_poll(
